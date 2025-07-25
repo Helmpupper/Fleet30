@@ -1,0 +1,20 @@
+---
+services:
+  webtop:
+    image: lscr.io/linuxserver/webtop:latest
+    env_file:
+      - .env
+    container_name: webtop
+    security_opt:
+      - seccomp:unconfined
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=Etc/UTC
+    volumes:
+      - ${CONFIG}:/config
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - 3000:3000
+      - 3001:3001
+    restart: unless-stopped
