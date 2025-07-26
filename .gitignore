@@ -1,2 +1,6 @@
+## ENV files ##
 .env
+
+## FOLDERS ##
 /config
+/tailscale

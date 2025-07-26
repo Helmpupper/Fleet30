@@ -1,7 +1,7 @@
 ---
 services:
   webtop:
-    image: lscr.io/linuxserver/webtop:latest
+    image: lscr.io/linuxserver/webtop:ubuntu-mate
     env_file:
       - .env
     container_name: webtop
@@ -11,9 +11,19 @@ services:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=Etc/UTC
+      - DOCKER_MODS=${DOCKER_MODS} #optional, replace with any Docker mods you want to apply
+      - TAILSCALE_STATE_DIR=/var/lib/tailscale #optional, if using Tailscale
+      - TAILSCALE_USE_IPTABLES=1
+      - TAILSCALE_AUTO_UPDATE=1
+      - TAILSCALE_AUTHKEY=${TAILSCALE_AUTHKEY} #optional, replace with your Tailscale auth key
+      - TAILSCALe_HOSTNAME=${TAILSCALE_HOSTNAME} #optional, replace with your Tailscale hostname
+      - TAILSCALE_SERVE_PORT=${TAILSCALE_SERVE_PORT} #optional, replace with your Tailscale serve port
+      - TAILSCALE_SERVE_MODE=${TAILSCALE_SERVE_MODE} #optional, replace with your Tailscale serve mode
     volumes:
       - ${CONFIG}:/config
       - /var/run/docker.sock:/var/run/docker.sock
+      - ./tailscale:/var/lib/tailscale
+      - /Users/jasonblairjr/Desktop/modmanager/modcache:/modcache #optional, replace with your mod cache directory
     ports:
       - 3000:3000
       - 3001:3001
